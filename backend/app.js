@@ -1,17 +1,18 @@
 const express = require('express');
 const path = require('path');
-const colors = require('colors');
 const {v4} = require('uuid');
+const PORT = require('./config/index');
+require('colors');
 
 const app = express();
 
 let CONTACTS = [
-    { id: v4(), name: 'Alex', value: '154654696', marked: false }
+    { id: v4(), name: 'Alex', value: '8 999 987 65 43', marked: false }
 ];
 
 app.use(express.json());   // midlleware для работы с response
 
-//endpoints
+////endpoints
 //GET
 app.get('/api/contacts', (req, res) => {
     res.status(200).json(CONTACTS);
@@ -39,8 +40,6 @@ app.put('/api/contacts/:id', (req, res) => {
 
 
 
-
-
 // эти строчки следует хранить внизу программы, ничже основного кода
 app.use(express.static(path.resolve(__dirname, '../client')));
 
@@ -48,4 +47,6 @@ app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client', 'index.html'));
 });
 
-app.listen(3000, () => console.log('Server has started on port 3000...'.bgMagenta));
+const port = 3000 || PORT;
+
+app.listen(port, () => console.log(`Server has started on port ${port}...`.bgMagenta));

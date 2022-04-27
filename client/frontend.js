@@ -42,7 +42,7 @@ new Vue({
             const contact = this.contacts.find(item => item.id === id);
             const updated = await request(`/api/contacts/${id}`, 'PUT', {
                 ...contact,
-                marked: true
+                marked: !contact.marked
             });
             
             contact.marked = updated.marked;
